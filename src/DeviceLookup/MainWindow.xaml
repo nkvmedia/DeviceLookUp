@@ -167,7 +167,7 @@
 
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap"/>
-                                        <TextBlock Text="{Binding Message}" Style="{StaticResource MutedText}" TextWrapping="Wrap" Margin="0,2,0,0">
+                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="0,2,0,0">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock" BasedOn="{StaticResource MutedText}">
                                                     <Style.Triggers><DataTrigger Binding="{Binding Message}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers>
