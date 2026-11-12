@@ -52,7 +52,7 @@
             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
             <StackPanel>
                 <TextBlock Text="{Binding ProgressText}" FontSize="13" Foreground="{StaticResource TextBrush}" Margin="0,0,0,4"/>
-                <ProgressBar Value="{Binding Progress}" Maximum="100" Height="10" Foreground="{StaticResource GreenBrush}" Background="#E2E7EF" BorderThickness="0"/>
+                <ProgressBar Value="{Binding Progress, Mode=OneWay}" Maximum="100" Height="10" Foreground="{StaticResource GreenBrush}" Background="#E2E7EF" BorderThickness="0"/>
             </StackPanel>
             <TextBlock Grid.Column="1" Text="{Binding ProgressPercentText}" VerticalAlignment="Bottom" Margin="12,0,0,-2" FontSize="13" Foreground="{StaticResource TextMutedBrush}"/>
         </Grid>
@@ -98,17 +98,17 @@
         <DataGrid Grid.Row="5" Style="{StaticResource ResultsGrid}" ItemsSource="{Binding VisibleRows}"
                   ColumnHeaderStyle="{StaticResource GridHeader}" CellStyle="{StaticResource GridCell}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Serial / Service Tag" Binding="{Binding SerialNumber}" Width="150"/>
-                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" Width="110"/>
-                <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="*"/>
-                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="110"/>
-                <DataGridTextColumn Header="MTM" Binding="{Binding Mtm}" Width="120"/>
-                <DataGridTemplateColumn Header="Warranty" Width="140">
+                <DataGridTextColumn Header="Serial / Service Tag" Binding="{Binding SerialNumber}" Width="1.3*" MinWidth="110"/>
+                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" Width="1*" MinWidth="90"/>
+                <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="2*" MinWidth="140"/>
+                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="1*" MinWidth="80"/>
+                <DataGridTextColumn Header="MTM" Binding="{Binding Mtm}" Width="1.3*" MinWidth="100"/>
+                <DataGridTemplateColumn Header="Warranty" Width="1.2*" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate><TextBlock Text="{Binding WarrantyLabel}" Style="{StaticResource WarrantyChipText}" FontWeight="Normal"/></DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Status" Width="120">
+                <DataGridTemplateColumn Header="Status" Width="1.1*" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" ToolTip="{Binding Error}">

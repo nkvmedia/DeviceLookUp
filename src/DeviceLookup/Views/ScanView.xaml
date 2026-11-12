@@ -37,7 +37,7 @@
         <UniformGrid Grid.Row="2" Columns="3" Margin="0,14,-12,0">
             <Border Style="{StaticResource TileBorder}">
                 <StackPanel Orientation="Horizontal">
-                    <Border Width="30" Height="30" CornerRadius="15" Background="{StaticResource AccentBrush}" Margin="0,0,12,0"><TextBlock Text="&#xE8EF;" Style="{StaticResource IconText}" Foreground="White" HorizontalAlignment="Center" FontSize="13"/></Border>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="{StaticResource AccentBrush}" Margin="0,0,12,0"><Path Data="M1,2H2.5V14H1Z M4,2H5V14H4Z M7,2H9V14H7Z M11,2H12V14H11Z M14,2H15.5V14H14Z M17.5,2H19V14H17.5Z" Stretch="Uniform" Width="14" Height="11" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                     <StackPanel><TextBlock Text="{Binding ScannedCount}" Style="{StaticResource TileNumber}"/><TextBlock Text="Devices scanned" Style="{StaticResource MutedText}"/></StackPanel>
                 </StackPanel>
             </Border>

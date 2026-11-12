@@ -30,6 +30,21 @@ jobs:
           if (-not $p.WaitForExit(90000)) { $p.Kill() }
           Get-ChildItem screenshots -ErrorAction SilentlyContinue
 
+      # Prints the app log as annotations, so errors are readable without downloading artifacts.
+      - name: Print app log
+        if: always()
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:LOCALAPPDATA 'DeviceLookup\Logs'
+          if (Test-Path $dir) {
+            Get-ChildItem $dir -Filter *.log | ForEach-Object {
+              $text = Get-Content $_.FullName -Raw
+              if ($text.Length -gt 12000) { $text = $text.Substring(0, 12000) }
+              $text = $text.Replace('%','%25').Replace("`r",'%0D').Replace("`n",'%0A')
+              Write-Host "::notice title=app-log $($_.Name)::$text"
+            }
+          } else { Write-Host "::notice title=app-log::no log folder found" }
+
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         with:
