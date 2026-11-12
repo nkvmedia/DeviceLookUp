@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>DeviceLookup</AssemblyName>
+    <RootNamespace>DeviceLookup</RootNamespace>
+    <Version>1.1.0</Version>
+    <!-- Application.ThemeMode (Windows 11 look for built-in controls) is still flagged experimental -->
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeviceLookup.Core\DeviceLookup.Core.csproj" />
+    <!-- Floating versions on purpose for the first build; pin them once it works. -->
+    <PackageReference Include="Velopack" Version="*" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="*" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run tests
+        run: dotnet run --project tests/DeviceLookup.Tests -c Release
+
+      - name: Publish app
+        run: dotnet publish src/DeviceLookup -c Release -r win-x64 --self-contained true -o publish
+
+      # Renders every screen with sample data to PNG, so the UI can be compared with the design.
+      - name: Render screenshots
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath publish\DeviceLookup.exe -ArgumentList '--screenshots','screenshots' -PassThru
+          if (-not $p.WaitForExit(90000)) { $p.Kill() }
+          Get-ChildItem screenshots -ErrorAction SilentlyContinue
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshots
+          path: screenshots
+          if-no-files-found: warn
+
+      - name: Upload app log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-log
+          path: ${{ env.LOCALAPPDATA }}\DeviceLookup\Logs
+          if-no-files-found: ignore

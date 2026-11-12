@@ -1,0 +1,47 @@
+name: Release
+
+# Push a tag like v1.2.0 and GitHub builds, packages and publishes the release.
+# Installed copies of the app find it and offer "Update".
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run tests
+        run: dotnet run --project tests/DeviceLookup.Tests -c Release
+
+      - name: Work out version
+        id: ver
+        shell: pwsh
+        run: |
+          $v = "${{ github.ref_name }}".TrimStart('v')
+          "version=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Publish (self-contained, .NET included)
+        run: dotnet publish src/DeviceLookup -c Release -r win-x64 --self-contained true -p:Version=${{ steps.ver.outputs.version }} -o publish
+
+      - name: Install Velopack CLI
+        run: dotnet tool install --global vpk
+
+      # Fetch previous releases so Velopack can build small delta updates (fails harmlessly on the first release).
+      - name: Download previous releases
+        continue-on-error: true
+        run: vpk download github --repoUrl ${{ github.server_url }}/${{ github.repository }} --token ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Package
+        run: vpk pack --packId DeviceLookup --packVersion ${{ steps.ver.outputs.version }} --packDir publish --mainExe DeviceLookup.exe --packTitle "Device Lookup"
+
+      - name: Publish GitHub release
+        run: vpk upload github --repoUrl ${{ github.server_url }}/${{ github.repository }} --publish --releaseName "Device Lookup ${{ steps.ver.outputs.version }}" --tag ${{ github.ref_name }} --token ${{ secrets.GITHUB_TOKEN }}

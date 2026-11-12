@@ -1,0 +1,283 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ===== Palette (taken from the design mockup) ===== -->
+    <SolidColorBrush x:Key="NavyBrush" Color="#16233F"/>
+    <SolidColorBrush x:Key="NavyTextBrush" Color="#C9D3E6"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="#1F6FE5"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#E8F0FD"/>
+    <SolidColorBrush x:Key="PageBrush" Color="#F4F6FA"/>
+    <SolidColorBrush x:Key="CardBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BorderBrushSoft" Color="#DCE2EC"/>
+    <SolidColorBrush x:Key="TextBrush" Color="#18212F"/>
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#5F6B7F"/>
+    <SolidColorBrush x:Key="GreenBrush" Color="#2E9E5B"/>
+    <SolidColorBrush x:Key="GreenSoftBrush" Color="#DFF3E6"/>
+    <SolidColorBrush x:Key="GreenTextBrush" Color="#1B6B3A"/>
+    <SolidColorBrush x:Key="AmberBrush" Color="#D98E04"/>
+    <SolidColorBrush x:Key="AmberSoftBrush" Color="#FFF0D1"/>
+    <SolidColorBrush x:Key="AmberTextBrush" Color="#8A5A00"/>
+    <SolidColorBrush x:Key="RedBrush" Color="#D64045"/>
+    <SolidColorBrush x:Key="RedSoftBrush" Color="#FDE3E4"/>
+    <SolidColorBrush x:Key="RedTextBrush" Color="#9C2428"/>
+    <SolidColorBrush x:Key="GraySoftBrush" Color="#E7EBF1"/>
+    <SolidColorBrush x:Key="LenovoBrush" Color="#E2231A"/>
+    <SolidColorBrush x:Key="DellBrush" Color="#007DB8"/>
+
+    <FontFamily x:Key="IconFont">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+    <CornerRadius x:Key="Radius">8</CornerRadius>
+
+    <!-- ===== Text ===== -->
+    <Style x:Key="PageTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    </Style>
+    <Style x:Key="PageSubtitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+        <Setter Property="Margin" Value="0,2,0,0"/>
+    </Style>
+    <Style x:Key="MutedText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+    <Style x:Key="IconText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource IconFont}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ===== Buttons ===== -->
+    <Style x:Key="BtnBase" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="MinHeight" Value="36"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{StaticResource Radius}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Bd" Property="Opacity" Value="0.88"/></Trigger>
+                        <Trigger Property="IsPressed" Value="True"><Setter TargetName="Bd" Property="Opacity" Value="0.75"/></Trigger>
+                        <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Bd" Property="Opacity" Value="0.45"/></Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+        <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+        <Setter Property="Background" Value="{StaticResource GraySoftBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="6"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+    </Style>
+
+    <!-- ===== Text box with optional hint (set Tag) ===== -->
+    <Style x:Key="FieldTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="MinHeight" Value="36"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{StaticResource Radius}">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                            <TextBlock x:Name="Hint" Text="{TemplateBinding Tag}" Margin="{TemplateBinding Padding}"
+                                       Foreground="#98A2B3" VerticalAlignment="Center" IsHitTestVisible="False"
+                                       Visibility="Collapsed"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value=""><Setter TargetName="Hint" Property="Visibility" Value="Visible"/></Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ===== Cards, tiles, chips ===== -->
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CardBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="{StaticResource Radius}"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+
+    <Style x:Key="Chip" TargetType="Border">
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="10,2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{StaticResource GraySoftBrush}"/>
+    </Style>
+
+    <!-- Warranty chip: DataContext must be a DeviceResult -->
+    <Style x:Key="WarrantyChip" TargetType="Border" BasedOn="{StaticResource Chip}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding WarrantyState}" Value="Active"><Setter Property="Background" Value="{StaticResource GreenSoftBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding WarrantyState}" Value="ExpiringSoon"><Setter Property="Background" Value="{StaticResource AmberSoftBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding WarrantyState}" Value="Expired"><Setter Property="Background" Value="{StaticResource RedSoftBrush}"/></DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="WarrantyChipText" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding WarrantyState}" Value="Active"><Setter Property="Foreground" Value="{StaticResource GreenTextBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding WarrantyState}" Value="ExpiringSoon"><Setter Property="Foreground" Value="{StaticResource AmberTextBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding WarrantyState}" Value="Expired"><Setter Property="Foreground" Value="{StaticResource RedTextBrush}"/></DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Vendor tag: DataContext must be a DeviceResult -->
+    <Style x:Key="VendorTag" TargetType="Border">
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="8,1"/>
+        <Setter Property="Background" Value="{StaticResource LenovoBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Manufacturer}" Value="Dell"><Setter Property="Background" Value="{StaticResource DellBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding Manufacturer}" Value="Unknown"><Setter Property="Background" Value="#8A94A6"/></DataTrigger>
+            <DataTrigger Binding="{Binding Manufacturer}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Status icon (check / cross / warning / spinner glyph) -->
+    <Style x:Key="StatusGlyph" TargetType="TextBlock" BasedOn="{StaticResource IconText}">
+        <Setter Property="Text" Value="&#xE73E;"/>
+        <Setter Property="Foreground" Value="{StaticResource GreenBrush}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Failed"><Setter Property="Text" Value="&#xE711;"/><Setter Property="Foreground" Value="{StaticResource RedBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="NotFound"><Setter Property="Text" Value="&#xE711;"/><Setter Property="Foreground" Value="{StaticResource RedBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="Pending"><Setter Property="Text" Value="&#xE916;"/><Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="Looking"><Setter Property="Text" Value="&#xE895;"/><Setter Property="Foreground" Value="{StaticResource AccentBrush}"/></DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ===== Sidebar items ===== -->
+    <Style x:Key="NavItem" TargetType="ListBoxItem">
+        <Setter Property="Foreground" Value="{StaticResource NavyTextBrush}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Bd" Background="Transparent" CornerRadius="6" Margin="8,2" Padding="12,10">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Bd" Property="Background" Value="#22345A"/></Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ===== Data grid ===== -->
+    <Style x:Key="ResultsGrid" TargetType="DataGrid">
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="#EDF0F5"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
+        <Setter Property="RowHeight" Value="32"/>
+        <Setter Property="FontSize" Value="12.5"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="EnableRowVirtualization" Value="True"/>
+    </Style>
+    <Style x:Key="GridHeader" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="#F4F6FA"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
+    <Style x:Key="GridCell" TargetType="DataGridCell">
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- Round badge with check or cross: DataContext must be a DeviceResult -->
+    <Style x:Key="StatusBadge" TargetType="Border">
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="CornerRadius" Value="14"/>
+        <Setter Property="Background" Value="{StaticResource GreenBrush}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Failed"><Setter Property="Background" Value="{StaticResource RedBrush}"/></DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="NotFound"><Setter Property="Background" Value="{StaticResource AmberBrush}"/></DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="StatusBadgeGlyph" TargetType="TextBlock" BasedOn="{StaticResource IconText}">
+        <Setter Property="Text" Value="&#xE73E;"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="Failed"><Setter Property="Text" Value="&#xE711;"/></DataTrigger>
+            <DataTrigger Binding="{Binding Status}" Value="NotFound"><Setter Property="Text" Value="&#xE711;"/></DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
