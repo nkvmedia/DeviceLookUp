@@ -98,11 +98,11 @@
         <DataGrid Grid.Row="5" Style="{StaticResource ResultsGrid}" ItemsSource="{Binding VisibleRows}"
                   ColumnHeaderStyle="{StaticResource GridHeader}" CellStyle="{StaticResource GridCell}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Serial / Service Tag" Binding="{Binding SerialNumber}" Width="1.3*" MinWidth="110"/>
-                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" Width="1*" MinWidth="90"/>
+                <DataGridTextColumn Header="Serial / Service Tag" Binding="{Binding SerialNumber}" Width="1.3*" MinWidth="145"/>
+                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" Width="1*" MinWidth="110"/>
                 <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="2*" MinWidth="140"/>
-                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="1*" MinWidth="80"/>
-                <DataGridTextColumn Header="MTM" Binding="{Binding Mtm}" Width="1.3*" MinWidth="100"/>
+                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="1*" MinWidth="105"/>
+                <DataGridTextColumn Header="MTM" Binding="{Binding Mtm}" Width="1.3*" MinWidth="115"/>
                 <DataGridTemplateColumn Header="Warranty" Width="1.2*" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate><TextBlock Text="{Binding WarrantyLabel}" Style="{StaticResource WarrantyChipText}" FontWeight="Normal"/></DataTemplate>
